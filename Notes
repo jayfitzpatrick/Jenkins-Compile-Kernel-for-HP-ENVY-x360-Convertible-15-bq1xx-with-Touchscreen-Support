@@ -1,0 +1,114 @@
+
+// git tag -l | less
+// git checkout -b stable v4.19.1
+// git pull stable v4.19.1
+
+
+
+if you get the following error while compiling
+
+drivers/base/platform.c: In function ‘__platform_driver_probe’:
+drivers/base/platform.c:679:2: error: #endif without #if
+ #endif
+
+edit drivers/base/platform.c line 679  and put a // in front of the unbalanced #endif
+
+
+on x86 systems
+
+change into the extracted kernel source dir and run the following to resolve all dependencies
+
+dnf builddep kernel.spec
+
+Apply any outstanding patches to the kernel source
+
+patch -p1 -i path/to/patch-x.y.z
+
+get the current running .config
+
+
+$zcat /proc/config.gz > .config
+
+or
+
+$cp /boot/config-'uname -r' .config
+
+make localmodconfig # will check the local lsmod to find used modules and adjust the .config file to match required modules
+make olddefconfig
+make prepare
+
+ensure the following are enabled (simply add to .config file, then run a make menuconfig and save,
+DM_CACHE_SMQ=y
+DM_CACHE=y
+DM_BIO_PRISON=y
+DM_PERSISTENT_DATA=y
+
+CONFIG_XFS_FS=y
+CONFIG_XFS_QUOTA=y
+CONFIG_XFS_POSIX_ACL=y
+CONFIG_XFS_RT=y
+CONFIG_XFS_ONLINE_SCRUB=y
+CONFIG_BLK_DEV_DM_BUILTIN=y
+CONFIG_BLK_DEV_DM=y
+CONFIG_BLK_MD=y
+CONFIG_BLK_BLK_DEV_DM=y
+CONFIG_TOUCHSCREEN_PROPERTIES=y
+CONFIG_TOUCHSCREEN_EKTF2127=y
+CONFIG_TOUCHSCREEN_ELAN=y
+CONFIG_TOUCHSCREEN_WACOM_W8001=y
+CONFIG_TOUCHSCREEN_WACOM_I2C=y
+CONFIG_TOUCHSCREEN_PIXCIR=y
+CONFIG_TOUCHSCREEN_USB_COMPOSITE=y
+CONFIG_TOUCHSCREEN_USB_EGALAX=y
+CONFIG_TOUCHSCREEN_USB_PANJIT=y
+CONFIG_TOUCHSCREEN_USB_3M=y
+CONFIG_TOUCHSCREEN_USB_ITM=y
+CONFIG_TOUCHSCREEN_USB_ETURBO=y
+CONFIG_TOUCHSCREEN_USB_GUNZE=y
+CONFIG_TOUCHSCREEN_USB_DMC_TSC10=y
+CONFIG_TOUCHSCREEN_USB_IRTOUCH=y
+CONFIG_TOUCHSCREEN_USB_IDEALTEK=y
+CONFIG_TOUCHSCREEN_USB_GENERAL_TOUCH=y
+CONFIG_TOUCHSCREEN_USB_GOTOP=y
+CONFIG_TOUCHSCREEN_USB_JASTEC=y
+CONFIG_TOUCHSCREEN_USB_ELO=y
+CONFIG_TOUCHSCREEN_USB_E2I=y
+CONFIG_TOUCHSCREEN_USB_ZYTRONIC=y
+CONFIG_TOUCHSCREEN_USB_ETT_TC45USB=y
+CONFIG_TOUCHSCREEN_USB_NEXIO=y
+CONFIG_TOUCHSCREEN_USB_EASYTOUCH=y
+CONFIG_TOUCHSCREEN_STMFTS=y
+CONFIG_TOUCHSCREEN_SUR40=y
+CONFIG_TOUCHSCREEN_SURFACE3_SPI=y
+CONFIG_HID_MULTITOUCH=y
+
+# add accelermeter support
+CONFIG_HID_SENSOR_HUB=m
+CONFIG_HID_SENSOR_CUSTOM_SENSOR=m
+CONFIG_HID_SENSOR_ACCEL_3D=m
+CONFIG_HID_SENSOR_IIO_COMMON=m
+CONFIG_HID_SENSOR_IIO_TRIGGER=m
+CONFIG_HID_SENSOR_GYRO_3D=m
+CONFIG_HID_SENSOR_ALS=m
+CONFIG_HID_SENSOR_PROX=m
+CONFIG_HID_SENSOR_MAGNETOMETER_3D=m
+CONFIG_HID_SENSOR_INCLINOMETER_3D=m
+CONFIG_HID_SENSOR_DEVICE_ROTATION=m
+CONFIG_HID_SENSOR_PRESS=m
+CONFIG_INTEL_ISH_HID=y
+
+
+make menuconfig # under general - local version add a unique ID to your build
+
+make rpm
+
+or
+
+make binrpm-pkg -j 8 # only creates the rpm and not the source rpm
+
+
+#create new initrd
+mkinitrd  /boot/initramfs-4.16.17.img 4.16.17
+
+# re-install grub
+grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
