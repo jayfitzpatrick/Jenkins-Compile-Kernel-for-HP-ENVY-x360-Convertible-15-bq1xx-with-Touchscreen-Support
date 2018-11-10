@@ -1,11 +1,8 @@
 #
-# Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 4.18.17-200.fc28.x86_64 Kernel Configuration
+# Modified to include XFS / LVM Caching  and Touchscreen Support for
+# HP ENVY x360 Convertible 15 bq1xx
 #
 
-#
-# Compiler: gcc (GCC) 8.2.1 20181011 (Red Hat 8.2.1-4)
-#
 DM_CACHE_SMQ=y
 DM_CACHE=y
 DM_BIO_PRISON=y
