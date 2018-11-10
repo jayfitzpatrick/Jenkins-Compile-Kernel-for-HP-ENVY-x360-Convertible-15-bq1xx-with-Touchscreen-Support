@@ -26,6 +26,12 @@ def workspace = pwd()
 		cd /jenkins/kernel/linux-stable
 		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch"
 """
+stage ('Update .config') {
+	sh """
+	cd /jenkins/kernel/linux-stable
+	sudo cp -f "${env.WORKSPACE}/.config ./
+	"""	
+}
 }
 }
 }
