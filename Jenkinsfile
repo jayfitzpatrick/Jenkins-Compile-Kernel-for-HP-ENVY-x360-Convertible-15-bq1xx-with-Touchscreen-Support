@@ -15,9 +15,9 @@ cd linux-stable
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		yum install -y yum-utils
-		yum-builddep kernel.spec
-		yum-builddep kernel
+		sudo yum install -y yum-utils
+		sudo yum-builddep kernel.spec
+		sudo yum-builddep kernel
 		"""
 	}
 	stage ('Apply patch to kernel source') {
