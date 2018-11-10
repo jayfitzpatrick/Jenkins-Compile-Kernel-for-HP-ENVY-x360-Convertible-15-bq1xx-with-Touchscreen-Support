@@ -30,6 +30,12 @@ stage ('Update .config') {
 	cd /jenkins/kernel/linux-stable
 	sudo wget https://raw.githubusercontent.com/jayfitzpatrick/Jenkins-Compile-Kernel-for-HP-ENVY-x360-Convertible-15-bq1xx-with-Touchscreen-Support/master/config -O ./.config
 	"""
+	stage ('Compile Kernel') {
+		sh """
+		cd /jenkins/kernel/linux-stable
+		make olddefconfig
+		make binrpm-pkg 
+"""
 	stage ('Cleanup') {
 		sh """
 		cd /jenkins/kernel/linux-stable
