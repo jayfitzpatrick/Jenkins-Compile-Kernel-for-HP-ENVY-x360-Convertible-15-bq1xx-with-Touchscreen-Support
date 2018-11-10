@@ -25,24 +25,25 @@ cd linux-stable
 		cd /jenkins/kernel/linux-stable
 		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch"
 """
+}
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
 	sudo wget https://raw.githubusercontent.com/jayfitzpatrick/Jenkins-Compile-Kernel-for-HP-ENVY-x360-Convertible-15-bq1xx-with-Touchscreen-Support/master/config -O ./.config
 	"""
+}
 	stage ('Compile Kernel') {
 		sh """
 		cd /jenkins/kernel/linux-stable
 		make olddefconfig
-		make binrpm-pkg 
+		make binrpm-pkg
 """
+}
 	stage ('Cleanup') {
 		sh """
 		cd /jenkins/kernel/linux-stable
 		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch" -R
 """
 	}
-}
-}
 }
 }
