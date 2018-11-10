@@ -15,8 +15,10 @@ cd linux-stable
  """
 	}
 	stage ('Install build dependencies') {
+		sh """
 		cd /jenkins/kernel/linux-stable
 		dnf builddep kernel.spec
+		"""
 	}
 	stage ('Apply patch to kernel source') {
 def workspace = pwd()
