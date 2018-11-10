@@ -24,7 +24,7 @@ cd linux-stable
 def workspace = pwd()
 		sh """
 		cd /jenkins/kernel/linux-stable
-		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch" -N //ignore if already applied
+		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch" -N 
 """
 stage ('Update .config') {
 	sh """
