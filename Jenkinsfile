@@ -29,7 +29,7 @@ def workspace = pwd()
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
-	sudo cp -f "${env.WORKSPACE}/.config" ./
+	sudo cp -f "${env.WORKSPACE}/config" ./.config
 	"""
 	stage ('Cleanup') {
 		sh """
