@@ -12,8 +12,11 @@ if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 fi
 cd linux-stable
-
  """
+	}
+	stage ('Install build dependencies') {
+		cd /jenkins/kernel/linux-stable
+		dnf builddep kernel.spec
 	}
 	stage ('Apply patch to kernel source') {
 def workspace = pwd()
