@@ -10,6 +10,7 @@ if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 fi
 cd linux-stable
+git checkout -b  v4.19.1
  """
 	}
 	stage ('Install build dependencies') {
