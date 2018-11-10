@@ -43,9 +43,8 @@ stage ('Update .config') {
 	stage ('Cleanup') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
+		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
 """
 	}
 }
 }
- 
