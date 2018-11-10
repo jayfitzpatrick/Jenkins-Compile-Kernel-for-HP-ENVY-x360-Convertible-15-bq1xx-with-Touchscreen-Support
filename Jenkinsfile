@@ -20,7 +20,11 @@ logger "${env.myVar}"
  """
 	}
 	stage ('Apply patch to kernel source') {
-			patch -p1 -i "${env.WORKSPACE}\hp-acpi-hack.patch"
-	}
+
+		sh """
+		cd /jenkins/kernel/linux-stable
+		patch -p1 -i "${env.WORKSPACE}\hp-acpi-hack.patch"
+"""
+}
 }
 }
