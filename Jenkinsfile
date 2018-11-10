@@ -1,5 +1,3 @@
-// Powered by Infostretch
-
 timestamps {
 
 node () {
@@ -17,7 +15,8 @@ cd linux-stable
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		dnf builddep kernel.spec
+		yum install -y yum-utils
+		yum-builddep kernel.spec
 		"""
 	}
 	stage ('Apply patch to kernel source') {
