@@ -1,0 +1,19 @@
+yum install VirtualBox-kmodsrc -y
+
+cd /usr/share/VirtualBox-kmod-5.2.18/VirtualBox-kmod-5.2.18/vboxdrv ;make ; make install  
+cd /usr/share/VirtualBox-kmod-5.2.18/VirtualBox-kmod-5.2.18/vboxnetflt;make ; make install
+cd /usr/share/VirtualBox-kmod-5.2.18/VirtualBox-kmod-5.2.18/vboxnetadp;make ; make install
+cd /usr/share/VirtualBox-kmod-5.2.18/VirtualBox-kmod-5.2.18/vboxpci;make ; make install
+
+for i in $(virsh list |grep -v Id |awk '{print $2}') ; do  virsh shutdown $i ; done
+
+service libvirtd stop
+#rmmod kvm
+#rmmod kvm_amd
+modprobe vboxdrv
+modprobe vboxnetflt
+modprobe vboxnetadp
+modprobe vboxpci
+
+export VBOX_HWVIRTEX_IGNORE_SVM_IN_USE=true
+virtualbox
