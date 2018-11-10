@@ -29,7 +29,7 @@ cd linux-stable
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
-	cp -f "${env.WORKSPACE}@script/config ./.config
+	cp -f "${env.WORKSPACE}@script/config" ./.config
 	"""
 }
 	stage ('Compile Kernel') {
