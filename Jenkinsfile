@@ -15,7 +15,7 @@ fi
 cd linux-stable
 git tag -l | less
 git checkout -b stable v4.19.1
-git pull
+git pull stable v4.19.1
 logger "${env.myVar}"
  """
 	}
