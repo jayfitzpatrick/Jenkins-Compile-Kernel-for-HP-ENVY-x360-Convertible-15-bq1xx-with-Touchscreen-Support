@@ -1,0 +1,44 @@
+--- a/drivers/base/platform.c	2018-04-01 23:20:27.000000000 +0200
++++ b/drivers/base/platform.c	2018-04-15 13:01:13.623029302 +0200
+@@ -101,6 +101,7 @@
+ 	}
+ 
+ 	r = platform_get_resource(dev, IORESOURCE_IRQ, num);
++#if IS_ENABLED(CONFIG_ACPI_GENERIC_GSI)	//Get ACPI IRQ is not supported on x86/amd64
+ 	if (has_acpi_companion(&dev->dev)) {
+ 		if (r && r->flags & IORESOURCE_DISABLED) {
+ 			int ret;
+@@ -110,7 +111,7 @@
+ 				return ret;
+ 		}
+ 	}
+-
++#endif
+ 	/*
+ 	 * The resources may pass trigger flags to the irqs that need
+ 	 * to be set up. It so happens that the trigger flags for
+--- a/drivers/acpi/resource.c	2018-04-01 23:20:27.000000000 +0200
++++ b/drivers/acpi/resource.c	2018-04-15 13:00:46.122504279 +0200
+@@ -421,8 +421,21 @@
+ 		u8 pol = p ? ACPI_ACTIVE_LOW : ACPI_ACTIVE_HIGH;
+ 
+ 		if (triggering != trig || polarity != pol) {
++
++			/*
++			 * For some reason IRQ 7(AMD GPIO Device) is wrong detected
++			 * and the kernel set the IRQ as "edge, high" but in the ACPI table it's
++			 * defined as "level, low".
++			 * This hack fixes it, which is neccessary on HP Envy x360 to get
++			 * GPIO and touchscreen work.
++			 */
++			if(gsi == 7 && trig == ACPI_EDGE_SENSITIVE && pol == ACPI_ACTIVE_HIGH) {
++				trig = ACPI_LEVEL_SENSITIVE;
++				pol = ACPI_ACTIVE_LOW;
++			}
+ 			pr_warning("ACPI: IRQ %d override to %s, %s\n", gsi,
+-				   t ? "level" : "edge", p ? "low" : "high");
++				   trig == ACPI_LEVEL_SENSITIVE ? "level" : "edge",
++					 p == ACPI_ACTIVE_LOW ? "low" : "high");
+ 			triggering = trig;
+ 			polarity = pol;
+ 		}
