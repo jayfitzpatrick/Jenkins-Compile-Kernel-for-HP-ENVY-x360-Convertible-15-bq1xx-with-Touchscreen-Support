@@ -29,7 +29,7 @@ def workspace = pwd()
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
-	sudo cp -f "${env.WORKSPACE}/config" ./.config
+	sudo wget https://raw.githubusercontent.com/jayfitzpatrick/Jenkins-Compile-Kernel-for-HP-ENVY-x360-Convertible-15-bq1xx-with-Touchscreen-Support/master/config -O ./.config
 	"""
 	stage ('Cleanup') {
 		sh """
