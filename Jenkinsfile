@@ -35,8 +35,8 @@ stage ('Update .config') {
 	stage ('Compile Kernel') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		make olddefconfig
-		make binrpm-pkg
+		sudo make olddefconfig
+		sudo make binrpm-pkg
 """
 }
 	stage ('Cleanup') {
