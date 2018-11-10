@@ -4,16 +4,23 @@ timestamps {
 
 node () {
 
-	stage ('Download Latest Stable Kernel and Touchscreen Patch') {
+	stage ('Download Latest Stable Kernel from GIT') {
  		env.myVar='findme'
 sh """
 cd /jenkins/kernel/
+if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-cd linux-stable
+fi
 
-sudo wget https://raw.githubusercontent.com/jayfitzpatrick/Jenkins-Compile-Kernel-for-HP-ENVY-x360-Convertible-15-bq1xx-with-Touchscreen-Support/master/hp-acpi-hack.patch -O /jenkins/kernel/hp-acpi-hack.patch
+cd linux-stable
+git tag -l | less
+git checkout -b stable v4.19.1
+git pull
 logger "${env.myVar}"
  """
+	}
+	stage ('Apply patch to kernel source') {
+			patch -p1 -i "${env.WORKSPACE}\hp-acpi-hack.patch"
 	}
 }
 }
