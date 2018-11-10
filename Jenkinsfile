@@ -1,5 +1,7 @@
 timestamps {
 
+checkout scm
+
 node () {
 
 	stage ('Download Latest Stable Kernel from GIT') {
