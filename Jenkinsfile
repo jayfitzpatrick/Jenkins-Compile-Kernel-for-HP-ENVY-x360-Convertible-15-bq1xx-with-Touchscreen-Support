@@ -21,7 +21,6 @@ cd linux-stable
 		"""
 	}
 	stage ('Apply patch to kernel source') {
-def workspace = pwd()
 		sh """
 		cd /jenkins/kernel/linux-stable
 		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch"
