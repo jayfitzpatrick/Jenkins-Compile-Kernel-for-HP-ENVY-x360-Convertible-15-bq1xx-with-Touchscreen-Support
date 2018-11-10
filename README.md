@@ -1,5 +1,5 @@
 # Jenkins-Compile-Kernel-for-HP-ENVY-x360-Convertible-15-bq1xx-with-Touchscreen-Support
-Jenkins Automated Kernel Compilation for HP ENVY x360 Convertible 15-bq1xx with Touchscreen Support
+Jenkins Pipeline for Automated Kernel Compilation for HP ENVY x360 Convertible 15-bq1xx with Touchscreen Support
 
 Work in Progress, Do not use!!!
 
