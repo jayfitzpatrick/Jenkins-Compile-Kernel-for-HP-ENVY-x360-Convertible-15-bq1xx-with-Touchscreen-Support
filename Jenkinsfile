@@ -23,13 +23,13 @@ cd linux-stable
 	stage ('Apply patch to kernel source') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		patch -p1 -i "${env.WORKSPACE}/hp-acpi-hack.patch"
+		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
 """
 }
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
-	cp -f "${env.WORKSPACE}/config ./.config
+	cp -f "${env.WORKSPACE}@script/config ./.config
 	"""
 }
 	stage ('Compile Kernel') {
