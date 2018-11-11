@@ -3,7 +3,7 @@
 // git checkout -b stable v4.19.1
 // git pull stable v4.19.1
 
-
+================================================================================
 
 if you get the following error while compiling
 
@@ -13,6 +13,9 @@ drivers/base/platform.c:679:2: error: #endif without #if
 
 edit drivers/base/platform.c line 679  and put a // in front of the unbalanced #endif
 
+No longer an issue...
+
+================================================================================
 
 on x86 systems
 

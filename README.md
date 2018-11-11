@@ -1,9 +1,12 @@
 # Jenkins-Compile-Kernel-for-HP-ENVY-x360-Convertible-15-bq1xx-with-Touchscreen-Support
 Jenkins Pipeline for Automated Kernel Compilation for HP ENVY x360 Convertible 15-bq1xx with Touchscreen Support
 
-Work in Progress, Do not use!!!
+This is all based on https://bugzilla.kernel.org/show_bug.cgi?id=198715#c14
 
-Successful build 11-11-18 - Untested yet
+
+Successful build 11-11-18 - System boots, Touchscreen working
+
+Note the installed kernel is not installing as the 1st kernel in Grub. 
 
 
 
