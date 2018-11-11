@@ -25,10 +25,13 @@ Jenkins Server is a qumu/kvm guest with 2xvCPU and 2GB RAM
 
 Outstanding issues: (both were in place on last running kernel 4.18.17-200.fc28.x86_64)
 
-HDMI Port not working in KDE / Plasma
-[drm:dc_link_detect [amdgpu]] *ERROR* No EDID read.
 
-Crash while using Display port adaptor over USB-C ports:
+Crash while using Display port adaptor over USB-C port connected to a Dell k17a docking station
+
+Poss related to this: http://www.displaylink.com/downloads/ubuntu
+and This
+https://github.com/displaylink-rpm/displaylink-rpm.git
+
 
 [drm] DM_MST: starting TM on aconnector: 0000000003f57a9e [id: 54]
 [ 1619.498450] [drm] DM_MST: reusing connector: 00000000edb91c42 [id: 80] [master: 0000000003f57a9e]
