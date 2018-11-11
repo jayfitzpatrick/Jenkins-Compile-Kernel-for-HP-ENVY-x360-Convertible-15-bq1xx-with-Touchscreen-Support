@@ -3,6 +3,8 @@ Jenkins Pipeline for Automated Kernel Compilation for HP ENVY x360 Convertible 1
 
 Work in Progress, Do not use!!!
 
+Successful build 11-11-18 - Untested yet
+
 
 
 
