@@ -10,6 +10,7 @@ if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 cd linux-stable
 git checkout -b stable v4.19.1
+touch .scmversion
 
 fi
 cd linux-stable
