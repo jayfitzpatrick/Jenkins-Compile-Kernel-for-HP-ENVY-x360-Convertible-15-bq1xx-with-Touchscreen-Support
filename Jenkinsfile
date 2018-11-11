@@ -8,6 +8,9 @@ sh """
 cd /jenkins/kernel/
 if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+cd linux-stable
+git checkout -b stable v4.19.1
+
 fi
 cd linux-stable
 
@@ -31,12 +34,12 @@ stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
 	cp -f "${env.WORKSPACE}@script/config" ./.config
+	sudo make olddefconfig
 	"""
 }
 	stage ('Compile Kernel') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		sudo make olddefconfig
 		sudo make binrpm-pkg -j 2
 """
 }
