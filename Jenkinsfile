@@ -24,14 +24,13 @@ cd /jenkins/kernel/
 	stage ('Apply patch to kernel source') {
 		sh """
 		cd /jenkins/kernel/linux-4.19.2
-		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
+		sudo patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
 """
 }
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-4.19.2
-  sudo make mrproper
-	cp -f "${env.WORKSPACE}@script/config" ./.config
+  sudo cp -f "${env.WORKSPACE}@script/config" ./.config
 	sudo make olddefconfig
 	"""
 }
@@ -44,7 +43,8 @@ stage ('Update .config') {
 	stage ('Cleanup') {
 		sh """
 		cd /jenkins/kernel/linux-4.19.2
-		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
+		sudo patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
+    sudo make distclean
 """
 	}
 }
