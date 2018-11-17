@@ -2,23 +2,22 @@ timestamps {
 
 node () {
 
-	stage ('Download Latest Stable Kernel from GIT') {
- 		env.myVar='findme'
-sh """
-cd /jenkins/kernel/
-if [[ ! -e linux-stable ]]; then
-git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-cd linux-stable
-git checkout -b linux-4.19.y
-git fetch
-touch .scmversion
-# cp "${env.WORKSPACE}@script/binkernel.spec" ./
+//	stage ('Download Latest Stable Kernel from GIT') {
+// sh """
+// cd /jenkins/kernel/
+// if [[ ! -e linux-stable ]]; then
+// git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+// cd linux-stable
+// git checkout -b linux-4.19.y
+// git fetch
+// touch .scmversion
+// # cp "${env.WORKSPACE}@script/binkernel.spec" ./
+//
+// fi
+// cd linux-stable
+//  """
+// 	}
 
-fi
-cd linux-stable
-
- """
-	}
 //	stage ('Switching Kernel Version') {
 //	sh """
 //	 cd /jenkins/kernel/linux-stable/
@@ -31,6 +30,17 @@ cd linux-stable
 // fi
 //	 """
 // }
+
+stage ('Downloading Kernel Source') {
+sh """
+cd /jenkins/kernel/
+ if [[ ! -e linux-4.19.2 ]]; then
+	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.2.tar.xz
+	tar -xf linux-4.19.2.tar.xz
+	fi
+"""
+
+}
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
@@ -42,14 +52,13 @@ cd linux-stable
 	}
 	stage ('Apply patch to kernel source') {
 		sh """
-		cd /jenkins/kernel/linux-stable
-		git fetch
+		cd /jenkins/kernel/linux-4.19.2
 		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
 """
 }
 stage ('Update .config') {
 	sh """
-	cd /jenkins/kernel/linux-stable
+	cd /jenkins/kernel/linux-4.19.2
   sudo make mrproper
 	cp -f "${env.WORKSPACE}@script/config" ./.config
 	sudo make olddefconfig
@@ -57,13 +66,13 @@ stage ('Update .config') {
 }
 	stage ('Compile Kernel') {
 		sh """
-		cd /jenkins/kernel/linux-stable
+		cd /jenkins/kernel/linux-4.19.2
 		sudo make binrpm-pkg -j 2
 """
 }
 	stage ('Cleanup') {
 		sh """
-		cd /jenkins/kernel/linux-stable
+		cd /jenkins/kernel/linux-4.19.2
 		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
 """
 	}
