@@ -12,6 +12,7 @@ cd linux-stable
 git checkout -b stable
 git fetch
 touch .scmversion
+# cp "${env.WORKSPACE}@script/binkernel.spec" ./
 
 fi
 cd linux-stable
@@ -35,6 +36,7 @@ cd linux-stable
 		cd /jenkins/kernel/linux-stable
 		sudo yum install -y yum-utils
 		sudo yum-builddep kernel.spec -y
+		sudo yum-builddep binkernel.spec -y
 		sudo yum-builddep kernel -y
 		"""
 	}
