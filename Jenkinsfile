@@ -9,7 +9,8 @@ cd /jenkins/kernel/
 if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 cd linux-stable
-git checkout -b stable v4.19.1
+git checkout -b stable v4.19.2
+git pull
 touch .scmversion
 
 fi
@@ -17,6 +18,21 @@ cd linux-stable
 
  """
 	}
+	stage ('Switching Kernel Version') {
+   try {
+		 sh """
+		 cd /jenkins/kernel/
+		 git checkout -b stable v4.19.2
+		 """
+   } catch {
+       echo 'Could not switch to branch'
+       currentBuild.result = 'FAILED'
+   } finally {
+       if (currentBuild.result != 'FAILED') {
+           echo 'This did work!'
+       }
+   }
+}
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
@@ -28,6 +44,7 @@ cd linux-stable
 	stage ('Apply patch to kernel source') {
 		sh """
 		cd /jenkins/kernel/linux-stable
+		git pull
 		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
 """
 }
