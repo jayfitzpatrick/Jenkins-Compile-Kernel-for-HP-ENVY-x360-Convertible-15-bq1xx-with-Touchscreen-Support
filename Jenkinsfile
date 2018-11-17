@@ -23,7 +23,7 @@ cd linux-stable
 		 cd /jenkins/kernel/
 	 git checkout -b stable v4.19.2
 		 """
-
+}
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
