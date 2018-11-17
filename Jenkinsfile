@@ -18,17 +18,18 @@ cd linux-stable
 
  """
 	}
-//	stage ('Switching Kernel Version') {
-//		sh """
-//		 cd /jenkins/kernel/linux-stable/
-//		 if [[ ! -e v4.19.2 ]]; then
-//		make clean
-//	 git checkout -b v4.19.2
-//	 git fetch
-//	 touch v4.19.2
-//	 fi
-//		 """
-//}
+	stage ('Switching Kernel Version') {
+	sh """
+	 cd /jenkins/kernel/linux-stable/
+	 if [[ ! -e v4.19.2 ]]; then
+	 	sudo make mrproper
+		sudo 	make clean
+ 		git checkout -b v4.19.2
+ 		git fetch
+ 	touch v4.19.2
+ fi
+	 """
+}
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
@@ -40,7 +41,7 @@ cd linux-stable
 	stage ('Apply patch to kernel source') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		git checkout stable
+		git checkout v4.19.2
 		git fetch
 		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
 """
@@ -48,6 +49,7 @@ cd linux-stable
 stage ('Update .config') {
 	sh """
 	cd /jenkins/kernel/linux-stable
+  sudo make mrproper
 	cp -f "${env.WORKSPACE}@script/config" ./.config
 	sudo make olddefconfig
 	"""
