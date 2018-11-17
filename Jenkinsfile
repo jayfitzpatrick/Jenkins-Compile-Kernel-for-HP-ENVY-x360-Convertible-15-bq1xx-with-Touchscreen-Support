@@ -22,6 +22,7 @@ cd linux-stable
 //		sh """
 //		 cd /jenkins/kernel/linux-stable/
 //		 if [[ ! -e v4.19.2 ]]; then
+//		make clean
 //	 git checkout -b v4.19.2
 //	 git fetch
 //	 touch v4.19.2
