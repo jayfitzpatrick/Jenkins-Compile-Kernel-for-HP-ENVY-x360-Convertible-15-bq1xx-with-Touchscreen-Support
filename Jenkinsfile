@@ -9,8 +9,8 @@ cd /jenkins/kernel/
 if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 cd linux-stable
-git checkout -b stable v4.19.2
-git pull
+git checkout -b v4.19.2
+git fetch
 touch .scmversion
 
 fi
@@ -20,8 +20,11 @@ cd linux-stable
 	}
 	stage ('Switching Kernel Version') {
 		sh """
-		 cd /jenkins/kernel/linux-stable/
-	 git checkout -b stable v4.19.2
+		 cd /jenkins/kernel/linux-stable
+		 if [[ ! -e v4.19.2 ]]; then
+	 git checkout -b v4.19.2
+	 git fetch
+	 touch v4.19.2
 		 """
 }
 	stage ('Install build dependencies') {
