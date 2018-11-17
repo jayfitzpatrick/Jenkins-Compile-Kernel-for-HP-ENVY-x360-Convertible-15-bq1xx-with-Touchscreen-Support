@@ -27,7 +27,7 @@ cd linux-stable
 //	 touch v4.19.2
 //	 fi
 //		 """
-}
+//}
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
