@@ -20,11 +20,12 @@ cd linux-stable
 	}
 	stage ('Switching Kernel Version') {
 		sh """
-		 cd /jenkins/kernel/linux-stable
+		 cd /jenkins/kernel/linux-stable/
 		 if [[ ! -e v4.19.2 ]]; then
 	 git checkout -b v4.19.2
 	 git fetch
 	 touch v4.19.2
+	 fi
 		 """
 }
 	stage ('Install build dependencies') {
