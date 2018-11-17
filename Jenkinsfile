@@ -44,7 +44,7 @@ stage ('Update .config') {
 		sh """
 		cd /jenkins/kernel/linux-4.19.2
 		sudo patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
-    sudo make distclean
+    # sudo make distclean
 """
 	}
 }
