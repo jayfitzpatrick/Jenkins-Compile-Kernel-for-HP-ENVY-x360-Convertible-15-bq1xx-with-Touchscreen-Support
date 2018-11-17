@@ -26,6 +26,8 @@ Jenkins Server is a qumu/kvm guest with 2xvCPU and 2GB RAM
 Installing:
 
 rpm -U kernel-4.20.0_rc2_HP_Envy_x360_bq1xx+-1.x86_64.rpm --excludepath=/boot/*.bz2
+grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+
 
 /* at the moment a compressed version of the kernel is being created (poss releated to .spec file) the above command will stop the vmlinux.bz2 file from being installed to /boot,
 
