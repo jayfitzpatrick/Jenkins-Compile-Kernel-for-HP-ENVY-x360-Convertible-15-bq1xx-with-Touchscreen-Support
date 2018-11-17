@@ -41,7 +41,6 @@ cd linux-stable
 	stage ('Apply patch to kernel source') {
 		sh """
 		cd /jenkins/kernel/linux-stable
-		git checkout v4.19.2
 		git fetch
 		patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch"
 """
