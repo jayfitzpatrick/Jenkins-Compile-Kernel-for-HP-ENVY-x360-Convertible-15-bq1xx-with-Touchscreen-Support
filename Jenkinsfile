@@ -19,20 +19,11 @@ cd linux-stable
  """
 	}
 	stage ('Switching Kernel Version') {
-   try {
-		 sh """
+		sh """
 		 cd /jenkins/kernel/
-		 git checkout -b stable v4.19.2
+	 git checkout -b stable v4.19.2
 		 """
-   } catch {
-       echo 'Could not switch to branch'
-       currentBuild.result = 'FAILED'
-   } finally {
-       if (currentBuild.result != 'FAILED') {
-           echo 'This did work!'
-       }
-   }
-}
+
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
