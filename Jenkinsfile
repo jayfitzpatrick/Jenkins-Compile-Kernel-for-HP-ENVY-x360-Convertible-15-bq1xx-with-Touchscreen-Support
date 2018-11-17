@@ -2,35 +2,6 @@ timestamps {
 
 node () {
 
-//	stage ('Download Latest Stable Kernel from GIT') {
-// sh """
-// cd /jenkins/kernel/
-// if [[ ! -e linux-stable ]]; then
-// git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-// cd linux-stable
-// git checkout -b linux-4.19.y
-// git fetch
-// touch .scmversion
-// # cp "${env.WORKSPACE}@script/binkernel.spec" ./
-//
-// fi
-// cd linux-stable
-//  """
-// 	}
-
-//	stage ('Switching Kernel Version') {
-//	sh """
-//	 cd /jenkins/kernel/linux-stable/
-//	 if [[ ! -e v4.19.2 ]]; then
-//	 	sudo make mrproper
-//		sudo 	make clean
-//		git checkout -b v4.19.2
-// 		git fetch
-// 	touch v4.19.2
-// fi
-//	 """
-// }
-
 stage ('Downloading Kernel Source') {
 sh """
 cd /jenkins/kernel/
@@ -43,7 +14,7 @@ cd /jenkins/kernel/
 }
 	stage ('Install build dependencies') {
 		sh """
-		cd /jenkins/kernel/linux-stable
+		cd /jenkins/kernel/linux-4.19.2
 		sudo yum install -y yum-utils
 		sudo yum-builddep kernel.spec -y
 		sudo yum-builddep binkernel.spec -y
