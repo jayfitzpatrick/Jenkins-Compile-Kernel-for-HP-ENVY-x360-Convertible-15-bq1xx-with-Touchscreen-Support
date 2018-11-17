@@ -9,7 +9,7 @@ cd /jenkins/kernel/
 if [[ ! -e linux-stable ]]; then
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 cd linux-stable
-git checkout -b stable
+git checkout -b linux-4.19.y
 git fetch
 touch .scmversion
 # cp "${env.WORKSPACE}@script/binkernel.spec" ./
@@ -19,18 +19,18 @@ cd linux-stable
 
  """
 	}
-	stage ('Switching Kernel Version') {
-	sh """
-	 cd /jenkins/kernel/linux-stable/
-	 if [[ ! -e v4.19.2 ]]; then
-	 	sudo make mrproper
-		sudo 	make clean
- 		git checkout -b v4.19.2
- 		git fetch
- 	touch v4.19.2
- fi
-	 """
-}
+//	stage ('Switching Kernel Version') {
+//	sh """
+//	 cd /jenkins/kernel/linux-stable/
+//	 if [[ ! -e v4.19.2 ]]; then
+//	 	sudo make mrproper
+//		sudo 	make clean
+//		git checkout -b v4.19.2
+// 		git fetch
+// 	touch v4.19.2
+// fi
+//	 """
+// }
 	stage ('Install build dependencies') {
 		sh """
 		cd /jenkins/kernel/linux-stable
