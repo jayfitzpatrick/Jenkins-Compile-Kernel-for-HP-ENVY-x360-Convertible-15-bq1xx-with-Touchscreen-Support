@@ -20,7 +20,7 @@ cd linux-stable
 	}
 	stage ('Switching Kernel Version') {
 		sh """
-		 cd /jenkins/kernel/
+		 cd /jenkins/kernel/linux-stable/
 	 git checkout -b stable v4.19.2
 		 """
 }
