@@ -23,17 +23,18 @@ Jenkins Server is a qumu/kvm guest with 2xvCPU and 2GB RAM
 
 =========================================================================================================
 
-Installing:
+Missing drivers
+Sensors ●
+Accelerometer (2: 1 for hard drive protection/CoolSense , 1 for display panel rotation detection to lock
+keyboard and ClickPad function; STMicro HP2DCTR×2)
+● Gyroscope / E-compass / Accelerometer (ST Micro HP9DS1TR)
 
-rpm -U kernel-4.20.0_rc2_HP_Envy_x360_bq1xx+-1.x86_64.rpm --excludepath=/boot/*.bz2
-grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-
-
-/* at the moment a compressed version of the kernel is being created (poss releated to .spec file) the above command will stop the vmlinux.bz2 file from being installed to /boot,
+Unable to find any source for these 
 
 =========================================================================================================
 
 Outstanding issues: (both were in place on last running kernel 4.18.17-200.fc28.x86_64)
+
 
 
 Crash while using Display port adaptor over USB-C port connected to a Dell k17a docking station
