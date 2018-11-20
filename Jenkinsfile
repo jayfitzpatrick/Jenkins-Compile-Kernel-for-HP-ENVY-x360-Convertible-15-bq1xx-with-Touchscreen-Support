@@ -37,7 +37,9 @@ stage ('Update .config') {
 	stage ('Compile Kernel') {
 		sh """
 		cd /jenkins/kernel/linux-4.19.2
-		sudo make binrpm-pkg -j 2
+		# sudo make binrpm-pkg -j 2
+    sudo make clean
+    sudo make rpm-pkg -j 2
 """
 }
 	stage ('Cleanup') {
