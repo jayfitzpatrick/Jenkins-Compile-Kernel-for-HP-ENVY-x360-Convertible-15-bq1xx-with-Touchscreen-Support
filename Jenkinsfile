@@ -34,22 +34,15 @@ stage ('Update .config') {
 	sudo make olddefconfig
 	"""
 }
-stage ('Update .config') {
+stage ('Add Displaylink support') {
 	sh """
-	cd /jenkins/kernel/linux-4.19.2
-  sudo cp -f "${env.WORKSPACE}@script/config" ./.config
-	sudo make olddefconfig
-	"""
-}
+  echo testing
+#git clone https://github.com/DisplayLink/evdi.git
+#mv -f evdi /jenkins/kernel/linux-4.19.2/drivers/video/displaylink
+#grep -q -F 'obj-$(CONFIG_STM)   += video/displaylink/' /jenkins/kernel/linux-4.19.2/drivers/Makefile || echo 'obj-$(CONFIG_STM)   += video/displaylink/' >> /jenkins/kernel/linux-4.19.2/drivers/Makefile
+#grep -q -F 'source "video/displaylink/Kconfig"' /jenkins/kernel/linux-4.19.2/drivers/Kconfig || echo 'source "video/displaylink/Kconfig"' >> /jenkins/kernel/linux-4.19.2/drivers/Kconfig
 
-stage (' Add Displaylink support') {
-sh """
-    echo testing
-  #git clone https://github.com/DisplayLink/evdi.git
-  #mv -f evdi /jenkins/kernel/linux-4.19.2/drivers/video/displaylink
-  #grep -q -F 'obj-$(CONFIG_STM)   += video/displaylink/' /jenkins/kernel/linux-4.19.2/drivers/Makefile || echo 'obj-$(CONFIG_STM)   += video/displaylink/' >> /jenkins/kernel/linux-4.19.2/drivers/Makefile
-  #grep -q -F 'source "video/displaylink/Kconfig"' /jenkins/kernel/linux-4.19.2/drivers/Kconfig || echo 'source "video/displaylink/Kconfig"' >> /jenkins/kernel/linux-4.19.2/drivers/Kconfig
-"""
+	"""
 }
 	stage ('Compile Kernel') {
 		sh """
