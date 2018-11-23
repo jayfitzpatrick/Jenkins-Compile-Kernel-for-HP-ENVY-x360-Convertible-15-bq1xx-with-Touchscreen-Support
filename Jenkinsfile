@@ -39,6 +39,7 @@ stage ('Add Displaylink support') {
 	sh """
   rm -Rf evdi
   git clone https://github.com/DisplayLink/evdi.git
+  mkdir /jenkins/kernel/linux-4.19.2/drivers/video/displaylink -p
   sudo mv -f evdi/* /jenkins/kernel/linux-4.19.2/drivers/video/displaylink/
   sudo cp -f "${env.WORKSPACE}@script/evdi_Kconfig" /jenkins/kernel/linux-4.19.2/drivers/Kconfig
 grep -q -F 'obj-\$(CONFIG_STM)   += video/displaylink/' /jenkins/kernel/linux-4.19.2/drivers/Makefile || echo 'obj-\$(CONFIG_STM)   += video/displaylink/' >> /jenkins/kernel/linux-4.19.2/drivers/Makefile
@@ -55,6 +56,7 @@ grep -q -F 'source "video/displaylink/Kconfig"' /jenkins/kernel/linux-4.19.2/dri
 }
 	stage ('Cleanup') {
 		sh """
+    rm -Rf evdi
 		cd /jenkins/kernel/linux-4.19.2
 		sudo patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
     # sudo make distclean
