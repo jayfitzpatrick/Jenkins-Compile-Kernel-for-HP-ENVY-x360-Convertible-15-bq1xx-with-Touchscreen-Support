@@ -29,6 +29,7 @@ pipeline {
                     fi
                       sudo cp -f "${env.WORKSPACE}@script/evdi_Kconfig" /jenkins/kernel/linux-"${KBUILD}"/drivers/video/displaylink/Kconfig
                       sudo cp -f "${env.WORKSPACE}@script/config" ./.config
+                      sudo make clean
                       sudo make olddefconfig
 
                       rm -Rf evdi
@@ -38,7 +39,6 @@ pipeline {
                       grep -q -F 'obj-\$(CONFIG_STM)   += video/displaylink/' /jenkins/kernel/linux-"${KBUILD}"/drivers/Makefile || echo 'obj-\$(CONFIG_STM)   += video/displaylink/' >> /jenkins/kernel/linux-"${KBUILD}"/drivers/Makefile
                     grep -q -F 'source "drivers/video/displaylink/Kconfig"' /jenkins/kernel/linux-"${KBUILD}"/drivers/Kconfig || echo 'source "drivers/video/displaylink/Kconfig"' >> /jenkins/kernel/linux-"${KBUILD}"/drivers/Kconfig
                     # sudo make binrpm-pkg -j 2
-                    sudo make clean
                     sudo make rpm-pkg -j 2
                     sudo patch -p1 -i "${env.WORKSPACE}@script/hp-acpi-hack.patch" -R
                     # sudo make distclean
