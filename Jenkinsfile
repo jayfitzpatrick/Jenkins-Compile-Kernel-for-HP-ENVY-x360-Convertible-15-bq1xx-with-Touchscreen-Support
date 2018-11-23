@@ -34,7 +34,7 @@ stage ('Update .config') {
   sudo cp -f "${env.WORKSPACE}@script/evdi_Kconfig" /jenkins/kernel/linux-4.19.2/drivers/video/displaylink/Kconfig
   sudo cp -f "${env.WORKSPACE}@script/config" ./.config
 	sudo make olddefconfig
-	"""/jenkins/kernel/linux-4.19.2/drivers/video/displaylink/
+	"""
 }
 stage ('Add Displaylink support') {
 	sh """
