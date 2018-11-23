@@ -37,7 +37,7 @@ stage ('Update .config') {
 }
 stage ('Add Displaylink support') {
 	sh """
-  echo testing
+  rm -Rf evdi
   git clone https://github.com/DisplayLink/evdi.git
   sudo mv -f evdi/* /jenkins/kernel/linux-4.19.2/drivers/video/displaylink/
   sudo cp -f "${env.WORKSPACE}@script/evdi_Kconfig" /jenkins/kernel/linux-4.19.2/drivers/Kconfig
