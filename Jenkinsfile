@@ -34,6 +34,14 @@ stage ('Update .config') {
 	sudo make olddefconfig
 	"""
 }
+stage ('Update .config') {
+	sh """
+	cd /jenkins/kernel/linux-4.19.2
+  sudo cp -f "${env.WORKSPACE}@script/config" ./.config
+	sudo make olddefconfig
+	"""
+}
+
 stage (' Add Displaylink support') {
 sh """
     echo testing
