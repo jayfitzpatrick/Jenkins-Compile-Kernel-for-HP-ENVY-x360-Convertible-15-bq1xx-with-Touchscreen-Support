@@ -43,7 +43,7 @@ stage ('Add Displaylink support') {
   sudo mkdir /jenkins/kernel/linux-4.19.2/drivers/video/displaylink -p
   sudo rsync -a evdi/* /jenkins/kernel/linux-4.19.2/drivers/video/displaylink/
   grep -q -F 'obj-\$(CONFIG_STM)   += video/displaylink/' /jenkins/kernel/linux-4.19.2/drivers/Makefile || echo 'obj-\$(CONFIG_STM)   += video/displaylink/' >> /jenkins/kernel/linux-4.19.2/drivers/Makefile
-grep -q -F 'source "video/displaylink/Kconfig"' /jenkins/kernel/linux-4.19.2/drivers/Kconfig || echo 'source "video/displaylink/Kconfig"' >> /jenkins/kernel/linux-4.19.2/drivers/Kconfig
+grep -q -F 'source "drivers/video/displaylink/Kconfig"' /jenkins/kernel/linux-4.19.2/drivers/Kconfig || echo 'source "drivers/video/displaylink/Kconfig"' >> /jenkins/kernel/linux-4.19.2/drivers/Kconfig
 	"""
 }
 	stage ('Compile Kernel') {
