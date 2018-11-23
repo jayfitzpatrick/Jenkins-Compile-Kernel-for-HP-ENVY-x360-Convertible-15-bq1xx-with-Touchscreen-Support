@@ -16,7 +16,7 @@ pipeline {
                     	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-"${KBUILD}".tar.xz
                     	tar -xf linux-"${KBUILD}".tar.xz
                     	fi
-
+                      cd linux-"${KBUILD}"
                       sudo yum install -y yum-utils rsync
                       sudo yum-builddep kernel.spec -y
                       sudo yum-builddep binkernel.spec -y
