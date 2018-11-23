@@ -37,7 +37,8 @@ stage ('Update .config') {
 stage ('Add Displaylink support') {
 	sh """
   echo testing
-
+  git clone https://github.com/DisplayLink/evdi.git
+  mv -f evdi /jenkins/kernel/linux-4.19.2/drivers/video/displaylink
 	"""
 }
 	stage ('Compile Kernel') {
