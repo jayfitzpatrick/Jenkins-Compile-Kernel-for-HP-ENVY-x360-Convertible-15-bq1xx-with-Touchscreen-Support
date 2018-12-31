@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        KBUILD = "4.19.4"
+        KBUILD = "4.19.13"
     }
 
     // ----------------
