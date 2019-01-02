@@ -8,7 +8,7 @@ Successful build 11-11-18 - System boots, Touchscreen working
 
 Note the installed kernel is not installing as the 1st kernel in Grub.
 
-
+-- as of Kernel 4.19.12-200.fc28.x86_64 from Fedora Repos touchscreen is now working  --
 
 
 
@@ -29,7 +29,7 @@ Accelerometer (2: 1 for hard drive protection/CoolSense , 1 for display panel ro
 keyboard and ClickPad function; STMicro HP2DCTR×2)
 ● Gyroscope / E-compass / Accelerometer (ST Micro HP9DS1TR)
 
-Unable to find any source for these 
+Unable to find any source for these
 
 =========================================================================================================
 
@@ -42,6 +42,7 @@ Crash while using Display port adaptor over USB-C port connected to a Dell k17a 
 Poss related to this: http://www.displaylink.com/downloads/ubuntu
 and This
 https://github.com/displaylink-rpm/displaylink-rpm.git
+https://github.com/displaylink-rpm/displaylink-rpm/releases
 
 
 [drm] DM_MST: starting TM on aconnector: 0000000003f57a9e [id: 54]
